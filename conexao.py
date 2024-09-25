@@ -1,10 +1,10 @@
 import mysql.connector 
 
 conn = mysql.connector.connect(
-    user = 'gomes',
+    user = 'u275872813_karython',
     password = '@Karython0705',
-    host = 'localhost',
-    database = 'crud'
+    host = 'srv1061.hstgr.io',
+    database = 'u275872813_CRUD'
 
 )
 
