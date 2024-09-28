@@ -1,0 +1,100 @@
+/* Estilizando o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Estilizando o cabeçalho */
+h1 {
+    color: #0026ff;
+    /* Cor da paleta definida anteriormente */
+    text-align: center;
+}
+
+/* Estilizando o subtítulo */
+h2 {
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Estilizando a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #1f9ff5;
+    /* Cor da paleta */
+    color: white;
+}
+
+/* Estilizando as linhas da tabela */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+    /* Linhas alternadas */
+}
+
+tr:hover {
+    background-color: #ddd;
+    /* Efeito ao passar o mouse */
+}
+
+/* Estilizando o botão */
+input[type="submit"] {
+    background-color: #1778f7;
+    /* Cor da paleta */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+}
+
+/* Efeito de hover no botão */
+input[type="submit"]:hover {
+    background-color: #1f9ff5;
+    /* Tom mais escuro ao passar o mouse */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        /* Reduzindo o padding em telas menores */
+    }
+
+    h1 {
+        font-size: 24px;
+        /* Diminuindo o tamanho da fonte do cabeçalho */
+    }
+
+    h2 {
+        font-size: 20px;
+        /* Diminuindo o tamanho da fonte do subtítulo */
+    }
+
+    table {
+        font-size: 14px;
+        /* Reduzindo o tamanho da fonte da tabela */
+    }
+
+    input[type="submit"] {
+        font-size: 14px;
+        /* Diminuindo o tamanho da fonte do botão */
+    }
+}

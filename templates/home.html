@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <h1>Inicio</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Email</th>
+                <!-- Se houver uma quarta coluna, adicione aqui
+                <th scope="col">Data de Cadastro</th> 
+                -->
+            </tr>
+        </thead>
+        <tbody>
+            {% if usuarios %}
+                {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario[0] }}</td>
+                <td>{{ usuario[1] }}</td>
+                <td>{{ usuario[2] }}</td>
+                
+            </tr>
+                {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="3">Nenhum usuário encontrado.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <form action="/logout" method="POST">
+        <input type="submit" value="Sair">
+    </form>
+</body>
+
+</html>
