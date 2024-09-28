@@ -4,35 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Início</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
 </head>
 
 <body>
-    <h1>Inicio</h1>
+    <h1>Usuários</h1>
+
+    <!-- Mensagem de Flash (se preferir manter) -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-info" role="alert">
+        {{ messages[0] }} <!-- Exibe a primeira mensagem -->
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadastroModal">
+        Cadastrar Usuário
+    </button>
+
     <table class="table">
         <thead>
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Email</th>
-                <!-- Se houver uma quarta coluna, adicione aqui
-                <th scope="col">Data de Cadastro</th> 
-                -->
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             {% if usuarios %}
-                {% for usuario in usuarios %}
+            {% for usuario in usuarios %}
             <tr>
                 <td>{{ usuario[0] }}</td>
                 <td>{{ usuario[1] }}</td>
                 <td>{{ usuario[2] }}</td>
-                
+                <td>
+                    <form action="/remover/{{ usuario[0] }}" method="POST" style="display:inline;">
+                        <div class="btn-group" role="group" aria-label="Exemplo básico">
+                            <button type="submit" class="btn btn-secondary">Editar</button>
+                            <button type="submit" class="btn btn-secondary"
+                                onclick="return confirm('Tem certeza que deseja excluir?');">Excluir</button>
+                        </div>
+                    </form>
+                </td>
             </tr>
-                {% endfor %}
+            {% endfor %}
             {% else %}
             <tr>
                 <td colspan="3">Nenhum usuário encontrado.</td>
@@ -44,6 +63,67 @@
     <form action="/logout" method="POST">
         <input type="submit" value="Sair">
     </form>
+
+    <!-- Modal de Cadastro -->
+    <div class="modal fade" id="cadastroModal" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cadastroModalLabel">Cadastrar Usuário</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/cadastrar" method="POST">
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" id="nome" name="nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="senha">Senha</label>
+                            <input type="password" class="form-control" id="senha" name="senha" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Mensagem -->
+    <div class="modal fade" id="mensagemModal" tabindex="-1" role="dialog" aria-labelledby="mensagemModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mensagemModalLabel">Mensagem</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="mensagemTexto"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para exibir a mensagem no modal -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
 </body>
 
 </html>

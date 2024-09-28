@@ -1,5 +1,5 @@
 from flask import Flask, redirect, render_template, request, url_for, flash, session
-from conexao import autenticacao, listar_usuario
+from services import autenticacao, listar_usuario, remover_usuario, cadastrar_usuario
 
 app = Flask(__name__)
 app.secret_key = 'sistemaSGU'
@@ -41,6 +41,25 @@ def logout():
     session.pop('usuario_logado', None) # remover o estado de login da sessão
     flash('Você foi desconectado.')
     return redirect(url_for('index'))
+
+
+@app.route('/remover/<int:id>', methods=['POST'])
+def remover_usuario_route(id):
+    resultado = remover_usuario(id)
+    flash(resultado)
+    return redirect(url_for('home'))
+
+@app.route('/cadastrar', methods=['POST'])
+# os dados estao vindo via request entao a função nao precisa de parametros
+def cadastrar_usuario_route():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        senha = request.form['senha']
+
+        resultado = cadastrar_usuario(nome, email, senha)
+        flash(resultado)
+        return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True)
